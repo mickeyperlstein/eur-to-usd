@@ -19,8 +19,8 @@ For more info, check out this sample's accompanying [Serverless Expeditions vide
 
 # architecture
 1. repo - github/mikceyperlstein/eur-to-usd.git
-1. cloud build - runs and tags the dockerfile and pushes to artifactory
-1. cloud run - runs the dockerfile
+1. cloud build - runs and tags the dockerfile and pushes to gcr.io/eur-to-usd/* docker registry
+1. cloud run - downloads and runs the dockerfile from the registry
 
 ## Schedule : uses cloud scheduler
   - send to pub/sub topic `refresh-by-cron-1`
