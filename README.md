@@ -27,3 +27,9 @@ For more info, check out this sample's accompanying [Serverless Expeditions vide
 
 service on app listens to the refresh signal
 
+service name is `app1`:   located at https://antheme-qsgvcmqmza-uc.a.run.app
+
+- listens on port 80 get, is open to allUSers
+- is based on flask
+
+
