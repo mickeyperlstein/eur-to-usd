@@ -1,4 +1,9 @@
-from node:13-slim
+FROM python:3.8-slim
+
 WORKDIR /app
-ADD . /app
-CMD node server.js
+
+COPY . ./
+
+RUN pip install flask gunicorn CurrencyConverter
+
+CMD gunicorn --bind :$PORT app:app
