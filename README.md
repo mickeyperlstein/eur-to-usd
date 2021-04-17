@@ -16,3 +16,14 @@ If you don't want to deploy a new Cloud Run service, install the Cloud Code plug
 
 
 For more info, check out this sample's accompanying [Serverless Expeditions video](https://www.youtube.com/watch?v=s2TIWIzCftM).
+
+# architecture
+1. repo - github/mikceyperlstein/eur-to-usd.git
+1. cloud build - runs and tags the dockerfile and pushes to artifactory
+1. cloud run - runs the dockerfile
+
+## Schedule : uses cloud scheduler
+  - send to pub/sub topic `refresh-by-cron-1`
+
+service on app listens to the refresh signal
+
