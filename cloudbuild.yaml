@@ -1,5 +1,4 @@
 steps:
-### Hello World Tests
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'hello-world', '.']
   dir: 'cloudcode/hello-world/src'
