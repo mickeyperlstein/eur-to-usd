@@ -1,7 +1,5 @@
 import os
 from itertools import groupby
-from typing import Tuple
-
 from flask import Flask
 from flask import render_template, request
 
@@ -19,17 +17,6 @@ def my_form_post():
     usd = round(2.25, 2)
 
     return render_template("form.html", euros=euros, usd=usd)
-
-
-def get_latest_data_for_user():
-    ativity_
-    data = {'last_activity_date': '2021-04-17 21:37'}
-
-    td = datetime.fromisoformat(data.get('last_activity_date')) - datetime.utcnow()  # type: timedelta
-    data.update({'hours_since_activity_update': td.total_seconds() / 3600})
-    data.update({'last_report_in_days': td.days})
-
-    return data
 
 
 def get_raw_latest_activity_data():
@@ -68,22 +55,30 @@ def make_dict_with_lists(iterable, key_func):
     return dict_ret
 
 
+def increasing(arr):
+        return True
+
+
 def create_aggregations(data):
     users = data[0]
     user_actions = data[1]
 
+    users_all = dict()
     for user_id, actions in user_actions.items():
-        per_user_stats ={
-            'last_activity_update_date' : max(actions, key=lambda g: g['time'])
+        dd = make_dict_with_lists(actions, key_func=lambda g: g['type'])
+        max_by_type = {f'updates_for_{action_type}': lambda: sorted(lst_actions_by_type, key=lambda x: x['time'])
+                       for action_type, lst_actions_by_type in dd.items()
+                       }
 
+        per_user_stats = {
+            'last_update_date': lambda: max(actions, key=lambda g: g['time']),
+            **max_by_type
         }
-        print(user_id, len(user_actions))
-        by_step_type = make_dict_with_lists(user_actions, key=lambda g: g['steps'])
-        for step, steps in by_step_type:
+        per_user_stats.update({
+            'PRO_increase': lambda: increasing(per_user_stats['updates_for_PRO'])
+        })
 
-
-
-
+        users_all[user_id] = per_user_stats
 
 
 if __name__ == "__main__":
@@ -95,7 +90,7 @@ if __name__ == "__main__":
 
     # match a literal first name and applying a regex to the email
     rule = rule_engine.Rule(
-        'first_name == "Luke" and email =~ ".*@rebels.org$"'
+        'PRO_increase == "True" and since =~ ".*@rebels.org$"'
     )  # => <Rule text='first_name == "Luke" and email =~ ".*@rebels.org$"' >
     rule.matches({
         'first_name': 'Luke', 'last_name': 'Skywalker', 'email': 'luke@rebels.org'

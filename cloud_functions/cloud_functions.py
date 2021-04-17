@@ -3,7 +3,7 @@
 def on_top_app1_cron_task_event(event, context):
 
     # load last sync
-    #  conect to db and get last 5 min
+    #  conect to db and get window since last sync
     #  update last sync
 
     pass
